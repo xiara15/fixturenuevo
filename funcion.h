@@ -11,15 +11,6 @@ FILE *archivoGrupo;
 // Estructura para guardar los nombres de los equipos
 struct equipos {
     char nombreEquipo[50];
-};
-
-// Estructura para guardar los grupos de los equipos
-struct grupos {
-    struct equipos equipo[4];
-    struct estadisticas estadistica;
-};
-// Estructura para guardar las estadísticas de los partidos
-struct estadisticas {
     int partidoGanado;
     int partidoPerdido;
     int partidoEmpatado;
@@ -29,11 +20,16 @@ struct estadisticas {
     int diferenciaGol;
     int puntos;
 };
+
+// Estructura para guardar los grupos de los equipos
+struct grupos {
+    struct equipos equipo[4];
+};
+
 //Estructura para guardar el nombre de la competencia y los equipos
 struct competencia {
     char nombreCompetencia[50];
     struct grupos grupo [8];
-
 };
 
 // Prototipos de funciones
@@ -86,7 +82,7 @@ void crearFixture() {
     struct grupos grupo[4];  // Mantener 4 grupos
     int numGrupos;
     int grupoElegido;
-     int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
+    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
     int golesFavor, golesContra, diferenciaGol, puntos;
 
 
@@ -115,26 +111,17 @@ void crearFixture() {
             fgets(grupo[i].equipo[j].nombreEquipo, 50, stdin);
             grupo[i].equipo[j].nombreEquipo[strcspn(grupo[i].equipo[j].nombreEquipo, "\n")] = 0;  // Eliminar salto de línea
 
-
-
-
             // Inicializar estadísticas del equipo
-            grupo[i].equipo[j].estadisticas.partidoJugados = 0;
             grupo[i].equipo[j].partidoGanado = 0;
-            grupo[i].equipo[j].partidoEmpatado = 0;
             grupo[i].equipo[j].partidoPerdido = 0;
-            grupo[i].equipo[j].Puntos = 0;
-            grupo[i].equipo[j].goles = 0;
+            grupo[i].equipo[j].partidoEmpatado = 0;
+            grupo[i].equipo[j].partidoJugados = 0;
+            grupo[i].equipo[j].golesFavor = 0;
             grupo[i].equipo[j].golesContra = 0;
-
-
-        }
-
-
-
-        }
-
-
+            grupo[i].equipo[j].diferenciaGol = 0;
+            grupo[i].equipo[j].puntos = 0;
+}
+}
 
     // Guardar la competencia y equipos en el archivo
     archivoEquipos = fopen("miarchivo.txt", "w");
@@ -171,14 +158,13 @@ void verFixtureCompleto(){
     while (fgets(linea, sizeof(linea), archivoEquipos)) {
         printf("%s", linea);
     }
-
     fclose(archivoEquipos);
 }
 
 // Función para ver un grupo específico
 
   void verGrupo()
-  {
+    {
 
     archivoEquipos = fopen("miarchivo.txt", "r");
     if (archivoEquipos == NULL) {
@@ -215,13 +201,76 @@ void verFixtureCompleto(){
 }
 
 // Función para cargar estadísticas de un equipo
-void cargarEstadisticas();
+
+
+void cargarEstadisticas(){
+
+    int grupoBuscado;
+    int numEquipo;
+    int equipo1, equipo2;
+    int golesEquipo1, golesEquipo2;
+
+    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
+    int golesFavor, golesContra, diferenciaGol, puntos;
+
+// Solicitar el número del grupo y equipo
+    printf("Ingrese el número del grupo (1-4): ");
+    scanf("%d", &grupoBuscado);
+    if (grupoBuscado< 1 || grupoBuscado > 4) {
+        printf("Error: Número de grupo inválido.\n");
+        return;
+    }
+
+    printf("Ingrese el número del equipo (1-4): ");
+    scanf("%d", &numEquipo);
+    if (numEquipo < 1 || numEquipo> 4) {
+        printf("Error: Número de equipo inválido.\n");
+        return;
+    }
 
 
 
+    // Solicitar las estadísticas del equipo
+    printf("Ingrese las estadísticas para el equipo %s:\n", equipo1 );
+
+    printf("Partidos ganados: ");
+    scanf("%d", &partidoGanado);
+
+    printf("Partidos perdidos: ");
+    scanf("%d", &partidoPerdido);
+
+    printf("Partidos empatados: ");
+    scanf("%d", &partidoEmpatado);
+
+    printf("Partidos jugados: ");
+    scanf("%d", &partidoJugados);
+
+    printf("Goles a favor: ");
+    scanf("%d", &golesFavor);
+
+    printf("Goles en contra: ");
+    scanf("%d", &golesContra);
+
+    // Calcular la diferencia de goles y los puntos
+    diferenciaGol = golesFavor - golesContra;
+    puntos = (partidoGanado * 3) + (partidoEmpatado * 1);
+
+    // Guardar las estadísticas en la estructura del equipo seleccionado
+
+    grupo.equipo.partidoGanado = partidoGanado;
+    equipo.partidoPerdido = partidoPerdido;
+    equipo.partidoEmpatado = partidoEmpatado;
+    equipo.partidoJugados = partidoJugados;
+    equipo.golesFavor = golesFavor;
+    equipo.golesContra = golesContra;
+    equipo.diferenciaGol = diferenciaGol;
+    equipo.puntos = puntos;
+
+    printf("\nEstadísticas del equipo %s actualizadas correctamente.\n", equipo->nombreEquipo);
+}
 
 
-
+}
 
 
 
