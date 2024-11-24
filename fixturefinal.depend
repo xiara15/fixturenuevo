@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1730418302 source:c:\users\caval\onedrive\documentos\tup programacion\fixturefinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funcion.h"
+
+1732484697 c:\users\caval\onedrive\documentos\tup programacion\fixturefinal\funcion.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
