@@ -4,22 +4,22 @@ Grupo 1:
 Equipo 1: argentina
 Equipo 2: chile
 Equipo 3: peru
-Equipo 4: colombia
+Equipo 4: bolivia
 
 Grupo 2:
-Equipo 1: venzuela
-Equipo 2: bolivia
-Equipo 3: canada
-Equipo 4: costa rica
+Equipo 1: canada
+Equipo 2: eeuu
+Equipo 3: paraguay
+Equipo 4: uruguay
 
 Grupo 3:
-Equipo 1: uruguay
-Equipo 2: paraguay
-Equipo 3: paises bajos
-Equipo 4: brasil
+Equipo 1: paises bajos
+Equipo 2: brasil
+Equipo 3: colombia
+Equipo 4: venezuela
 
 Grupo 4:
-Equipo 1: panama
-Equipo 2: jamaica
-Equipo 3: 
-Equipo 4: mexico
+Equipo 1: japon
+Equipo 2: francia
+Equipo 3: italia
+Equipo 4: inglaterra

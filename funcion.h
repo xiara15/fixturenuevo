@@ -202,78 +202,43 @@ void verFixtureCompleto(){
 
 // Función para cargar estadísticas de un equipo
 
-
 void cargarEstadisticas(){
 
-    int grupoBuscado;
-    int numEquipo;
+    int grupo;
     int equipo1, equipo2;
-    int golesEquipo1, golesEquipo2;
+    int goles1, goles2;
 
-    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
-    int golesFavor, golesContra, diferenciaGol, puntos;
+    printf("seleccione el grupo (1,2,3,4): ");
+    scanf("%d", &grupo);
 
-// Solicitar el número del grupo y equipo
-    printf("Ingrese el número del grupo (1-4): ");
-    scanf("%d", &grupoBuscado);
-    if (grupoBuscado< 1 || grupoBuscado > 4) {
-        printf("Error: Número de grupo inválido.\n");
+   if (grupo < 1 || grupo > 4) {
+        printf("El numero del grupo esta mal porfiado. Intente de nuevo.\n");
         return;
     }
 
-    printf("Ingrese el número del equipo (1-4): ");
-    scanf("%d", &numEquipo);
-    if (numEquipo < 1 || numEquipo> 4) {
-        printf("Error: Número de equipo inválido.\n");
-        return;
-    }
+    printf("seleccione el primer equipo (1-4): ");
+    scanf("%d", &equipo1);
+    printf("seleccione el segundo equipo (1-4): ");
+    scanf("%d", &equipo2);
+    printf("ingrese los goles del primer equipo: ");
+    scanf("%d", &goles1);
+    printf("ingrese los goles del segundo equipo: ");
+    scanf("%d", &goles2);
+
+    equipo1--;  //indice para el primer equipo
+    equipo2--;  //indice para el segundo equipo
+
+ //actualizar estadisticas del primer equipo
 
 
+    //actualizar estadisticas del segundo equipo
 
-    // Solicitar las estadísticas del equipo
-    printf("Ingrese las estadísticas para el equipo %s:\n", equipo1 );
 
-    printf("Partidos ganados: ");
-    scanf("%d", &partidoGanado);
+    //actualizar puntos
 
-    printf("Partidos perdidos: ");
-    scanf("%d", &partidoPerdido);
-
-    printf("Partidos empatados: ");
-    scanf("%d", &partidoEmpatado);
-
-    printf("Partidos jugados: ");
-    scanf("%d", &partidoJugados);
-
-    printf("Goles a favor: ");
-    scanf("%d", &golesFavor);
-
-    printf("Goles en contra: ");
-    scanf("%d", &golesContra);
-
-    // Calcular la diferencia de goles y los puntos
-    diferenciaGol = golesFavor - golesContra;
-    puntos = (partidoGanado * 3) + (partidoEmpatado * 1);
-
-    // Guardar las estadísticas en la estructura del equipo seleccionado
-
-    grupo.equipo.partidoGanado = partidoGanado;
-    equipo.partidoPerdido = partidoPerdido;
-    equipo.partidoEmpatado = partidoEmpatado;
-    equipo.partidoJugados = partidoJugados;
-    equipo.golesFavor = golesFavor;
-    equipo.golesContra = golesContra;
-    equipo.diferenciaGol = diferenciaGol;
-    equipo.puntos = puntos;
-
-    printf("\nEstadísticas del equipo %s actualizadas correctamente.\n", equipo->nombreEquipo);
-}
 
 
 }
-
-
-
 // Función para modificar un dato
 
 
