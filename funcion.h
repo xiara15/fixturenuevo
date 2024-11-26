@@ -141,7 +141,7 @@ void crearFixture() {
                    grupo[i].equipo[j].golesContra,
                    grupo[i].equipo[j].diferenciaGol);
         }
-        printf("================================================================================\n");
+        printf("=============================================================================\n");
     }
 
     // Guardar la competencia y equipos en el archivo
@@ -184,12 +184,78 @@ void verFixtureCompleto(){
     fclose(archivoEquipos);
 }
 
+//funcion para cargar datos
+
+void cargarDatos() {
+    FILE *archivo = fopen("miarchivo.txt", "r");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo para cargar los datos.\n");
+        return;
+    }
+
+    char linea[100];
+    fgets(linea, sizeof(linea), archivo); // Leer la línea de la competencia
+    sscanf(linea, "Competencia: %[^\n]", comp.nombreCompetencia);
+
+    for (int i = 0; i < 4; i++) {
+        fgets(linea, sizeof(linea), archivo); // Leer "Grupo X:"
+        for (int j = 0; j < 4; j++) {
+            fgets(linea, sizeof(linea), archivo);
+            sscanf(linea, "%s %d %d %d %d %d %d %d %d",
+                   comp.grupo[i].equipo[j].nombreEquipo,
+                   &comp.grupo[i].equipo[j].partidoJugados,
+                   &comp.grupo[i].equipo[j].partidoGanado,
+                   &comp.grupo[i].equipo[j].partidoEmpatado,
+                   &comp.grupo[i].equipo[j].partidoPerdido,
+                   &comp.grupo[i].equipo[j].puntos,
+                   &comp.grupo[i].equipo[j].golesFavor,
+                   &comp.grupo[i].equipo[j].golesContra,
+                   &comp.grupo[i].equipo[j].diferenciaGol);
+        }
+    }
+
+    fclose(archivo);
+    printf("Datos cargados correctamente desde el archivo en formato compacto.\n");
+}
+
+//funcion para guardar datos
+void guardarDatos() {
+    FILE *archivo = fopen("miarchivo.txt", "w");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo para guardar los datos.\n");
+        return;
+    }
+
+    // Guardar el nombre de la competencia
+    fprintf(archivo, "Competencia: %s\n", comp.nombreCompetencia);
+
+    // Guardar los datos de los grupos y equipos
+    for (int i = 0; i < 4; i++) {
+        fprintf(archivo, "Grupo %d:\n", i + 1); // Título del grupo
+        for (int j = 0; j < 4; j++) {
+            // Escribir los datos en formato compacto
+            fprintf(archivo, "%s %d %d %d %d %d %d %d %d\n",
+                    comp.grupo[i].equipo[j].nombreEquipo,
+                    comp.grupo[i].equipo[j].partidoJugados,
+                    comp.grupo[i].equipo[j].partidoGanado,
+                    comp.grupo[i].equipo[j].partidoEmpatado,
+                    comp.grupo[i].equipo[j].partidoPerdido,
+                    comp.grupo[i].equipo[j].puntos,
+                    comp.grupo[i].equipo[j].golesFavor,
+                    comp.grupo[i].equipo[j].golesContra,
+                    comp.grupo[i].equipo[j].diferenciaGol);
+        }
+    }
+
+    fclose(archivo);
+    printf("Datos guardados correctamente en formato compacto.\n");
+}
+
+
 // Función para ver un grupo específico
 
 void verGrupo() {
-    char nombreCompetencia[50];
-    struct grupos grupo[4];  // Mantener 4 grupos
-    int numGrupos;
+
     int grupoElegido;
 
     printf("Ingrese el numero del grupo (1-4): ");
@@ -375,6 +441,7 @@ void modificarNombreEquipos() {
 
 void menuFixture(){
     int opcion;
+
     do{
         printf("\n========== MENU FIXTURE ====================");
         printf("\n||        1.Ver Fixture Completo          ||");
