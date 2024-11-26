@@ -204,7 +204,9 @@ void verFixtureCompleto(){
 
 void cargarEstadisticas(){
 
+    struct competencia;
     int grupo;
+    int equipo;
     int equipo1, equipo2;
     int goles1, goles2;
 
@@ -225,20 +227,65 @@ void cargarEstadisticas(){
     printf("ingrese los goles del segundo equipo: ");
     scanf("%d", &goles2);
 
+      // Validamos si los equipos son correctos y diferentes entre sí
+    if (equipo1 < 1 || equipo1 > 4 || equipo2 < 1 || equipo2 > 4 || equipo1 == equipo2) {
+        printf("Los números de los equipos son inválidos. Intente de nuevo.\n");
+        return;
+    }
+
     equipo1--;  //indice para el primer equipo
     equipo2--;  //indice para el segundo equipo
 
- //actualizar estadisticas del primer equipo
+       // Abrir el archivo de datos
+    archivoEquipos = fopen("miarchivo.txt", "r");
+    if (archivoEquipos == NULL) {
+        printf("Error: No se pudo abrir el archivo.\n");
+        return;
+    }
+
+    FILE *archivoTemp = fopen("temp.txt", "w");
+    if (archivoTemp == NULL) {
+        printf("Error: No se pudo crear el archivo temporal.\n");
+        fclose(archivoEquipos);
+        return;
+    }
+
+    equipo1--; // Índice para el primer equipo
+    equipo2--; // Índice para el segundo equipo
 
 
-    //actualizar estadisticas del segundo equipo
+//actualizar estadisticas del primer equipo
+    competencia.grupo[grupo].equipo[equipo1].partidoJugados++;
+    competencia.grupo[grupo].equipo[equipo1].golesFavor += goles1;
+    competencia.grupo[grupo].equipo[equipo1].golesContra += goles2;
+    competencia.grupo[grupo].equipo[equipo1].diferenciaGol += (goles1 - goles2);
+// Actualización de estadísticas del segundo equipo
+    competencia.grupo[grupo].equipo[equipo2].partidoJugados++;  // Incrementa el número de partidos jugados
+    competencia.grupo[grupo].equipo[equipo2].golesFavor += goles2;  // Suma los goles a favor
+    competencia.grupo[grupo].equipo[equipo2].golesContra += goles1;  // Suma los goles en contra
+    competencia.grupo[grupo].equipo[equipo2].diferenciaGol += (goles2 - goles1);  // Calcula la diferencia de goles
 
+    // Determinar el ganador y actualizar puntos
+    if (goles1 > goles2) {
+        competencia.grupo[grupo].equipo[equipo1].partidoGanado++;  // Incrementa los partidos ganados del primer equipo
+        competencia.grupo[grupo].equipo[equipo1].puntos += 3;  // El primer equipo recibe 3 puntos
+        competencia.grupo[grupo].equipo[equipo2].partidoPerdido++;  // Incrementa los partidos perdidos del segundo equipo
+    } else if (goles1 < goles2) {
+        competencia.grupo[grupo].equipo[equipo2].partidoGanado++;  // Incrementa los partidos ganados del segundo equipo
+        competencia.grupo[grupo].equipo[equipo2].puntos += 3;  // El segundo equipo recibe 3 puntos
+        competencia.grupo[grupo].equipo[equipo1].partidoPerdido++;  // Incrementa los partidos perdidos del primer equipo
+    } else {
+        competencia.grupo[grupo].equipo[equipo1].partidoEmpatado++;  // Incrementa los partidos empatados del primer equipo
+        competencia.grupo[grupo].equipo[equipo1].puntos += 1;  // El primer equipo recibe 1 punto
+        competencia.grupo[grupo].equipo[equipo2].partidoEmpatado++;  // Incrementa los partidos empatados del segundo equipo
+        competencia.grupo[grupo].equipo[equipo2].puntos += 1;  // El segundo equipo recibe 1 punto
+    }
 
-    //actualizar puntos
-
-
-
+    printf("Estadísticas actualizadas exitosamente.\n");
 }
+
+
+
 // Función para modificar un dato
 
 
