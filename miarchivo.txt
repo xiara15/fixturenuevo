@@ -1,25 +1,25 @@
-Competencia: copa america
+Competencia: copa
 
 Grupo 1:
-Equipo 1: arg
-Equipo 2: chile
-Equipo 3: peru
-Equipo 4: canada
+Equipo 1: e
+Equipo 2: e
+Equipo 3: e
+Equipo 4: e
 
 Grupo 2:
-Equipo 1: bolivia
-Equipo 2: mexico
-Equipo 3: eeuu
-Equipo 4: panama
+Equipo 1: a
+Equipo 2: a
+Equipo 3: a
+Equipo 4: a
 
 Grupo 3:
-Equipo 1: uruguay
-Equipo 2: paraguay
-Equipo 3: costa rica
-Equipo 4: paises bajos
+Equipo 1: b
+Equipo 2: b
+Equipo 3: b
+Equipo 4: b
 
 Grupo 4:
-Equipo 1: ecuador
-Equipo 2: francia
-Equipo 3: paris
-Equipo 4: italia
+Equipo 1: c
+Equipo 2: c
+Equipo 3: c
+Equipo 4: c

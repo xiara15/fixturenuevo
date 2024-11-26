@@ -143,11 +143,9 @@ void crearFixture() {
         }
         printf("================================================================================\n");
     }
-}
-
 
     // Guardar la competencia y equipos en el archivo
-void guardarEquipos(struct grupos grupo[], int numGrupos, char nombreCompetencia[]) {
+
     FILE *archivoEquipos = fopen("miarchivo.txt", "w");
     if (archivoEquipos == NULL) {
         perror("Error al abrir el archivo");
@@ -165,11 +163,12 @@ void guardarEquipos(struct grupos grupo[], int numGrupos, char nombreCompetencia
     fclose(archivoEquipos);
     printf("Competencia y equipos guardados correctamente, muy bien\n");
 
+}
 // aqui comienza las funciones del menuFixture
 
 // Función para ver fixture completo
 
-}
+
 void verFixtureCompleto(){
     archivoEquipos = fopen("miarchivo.txt", "r");
     if (archivoEquipos == NULL) {
