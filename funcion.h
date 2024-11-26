@@ -11,6 +11,7 @@ FILE *archivoGrupo;
 // Estructura para guardar los nombres de los equipos
 struct equipos {
     char nombreEquipo[50];
+    int estadisticas;
     int partidoGanado;
     int partidoPerdido;
     int partidoEmpatado;
@@ -188,8 +189,14 @@ void verFixtureCompleto(){
 
 // Función para ver un grupo específico
 
-  void verGrupo()
-    {
+  void verGrupo(){
+    char nombreCompetencia[50];
+    struct grupos grupo[4];  // Mantener 4 grupos
+    int numGrupos;
+    int grupoElegido;
+    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
+    int golesFavor, golesContra, diferenciaGol, puntos;
+
 
     archivoEquipos = fopen("miarchivo.txt", "r");
     if (archivoEquipos == NULL) {
@@ -223,6 +230,29 @@ void verFixtureCompleto(){
     }
 
     fclose(archivoEquipos);
+
+
+
+for (int i = 0; i < 4; i++) { // Recorremos los grupos
+    printf("\n--- Estadísticas del Grupo %d ---\n", i + 1);
+    printf("\n================================= GRUPO %c ===================================\n", grupoElegido);
+    printf("| Equipo             | PJ   | PG   | PE   | PP   | Pts  | GF   | GC   | DG   |\n");
+    printf("|--------------------|------|------|------|------|------|------|------|------|\n");
+
+
+    for (int j = 0; j < 4; j++) { // Recorremos los equipos dentro del grupo
+        printf("| %-18s | %4d | %4d | %4d | %4d | %4d | %4d | %4d | %4d |\n",
+               grupo[i].equipo[j].nombreEquipo,  // Nombre del equipo
+               grupo[i].equipo[j].partidoJugados, // Partidos jugados
+               grupo[i].equipo[j].partidoGanado,  // Partidos ganados
+               grupo[i].equipo[j].partidoEmpatado,// Partidos empatados
+               grupo[i].equipo[j].partidoPerdido, // Partidos perdidos
+               grupo[i].equipo[j].puntos,         // Puntos
+               grupo[i].equipo[j].golesFavor,     // Goles a favor
+               grupo[i].equipo[j].golesContra,    // Goles en contra
+               grupo[i].equipo[j].diferenciaGol); // Diferencia de goles
+    }
+}
 }
 
 // Función para cargar estadísticas de un equipo
