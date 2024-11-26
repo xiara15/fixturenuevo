@@ -31,6 +31,8 @@ struct competencia {
     char nombreCompetencia[50];
     struct grupos grupo [8];
 };
+// Declarar una variable global de tipo Competencia
+struct competencia comp;
 
 // Prototipos de funciones
 void CrearMenu();
@@ -122,9 +124,32 @@ void crearFixture() {
             grupo[i].equipo[j].puntos = 0;
 }
 }
+  // Mostrar el fixture y las estadísticas iniciales de los equipos
+    for (int i = 0; i < numGrupos; i++) {
+        printf("\n================================= GRUPO %d ===================================\n", i + 1);
+        printf("| Equipo             | PJ   | PG   | PE   | PP   | Pts  | GF   | GC   | DG   |\n");
+        printf("|--------------------|------|------|------|------|------|------|------|------|\n");
+
+        for (int j = 0; j < 4; j++) {
+            printf("| %-18s | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d |\n",
+                   grupo[i].equipo[j].nombreEquipo,
+                   grupo[i].equipo[j].partidoJugados,
+                   grupo[i].equipo[j].partidoGanado,
+                   grupo[i].equipo[j].partidoEmpatado,
+                   grupo[i].equipo[j].partidoPerdido,
+                   grupo[i].equipo[j].puntos,
+                   grupo[i].equipo[j].golesFavor,
+                   grupo[i].equipo[j].golesContra,
+                   grupo[i].equipo[j].diferenciaGol);
+        }
+        printf("================================================================================\n");
+    }
+}
+
 
     // Guardar la competencia y equipos en el archivo
-    archivoEquipos = fopen("miarchivo.txt", "w");
+    void guardarEquipos(struct grupos grupo[], int numGrupos, char nombreCompetencia[]) {
+    FILE *archivoEquipos = fopen("miarchivo.txt", "w");
     if (archivoEquipos == NULL) {
         perror("Error al abrir el archivo");
         return;
@@ -204,7 +229,7 @@ void verFixtureCompleto(){
 
 void cargarEstadisticas(){
 
-    struct competencia;
+    struct comp;
     int grupo;
     int equipo;
     int equipo1, equipo2;
@@ -255,33 +280,33 @@ void cargarEstadisticas(){
 
 
 //actualizar estadisticas del primer equipo
-    competencia.grupo[grupo].equipo[equipo1].partidoJugados++;
-    competencia.grupo[grupo].equipo[equipo1].golesFavor += goles1;
-    competencia.grupo[grupo].equipo[equipo1].golesContra += goles2;
-    competencia.grupo[grupo].equipo[equipo1].diferenciaGol += (goles1 - goles2);
+    comp.grupo[grupo].equipo[equipo1].partidoJugados++;
+    comp.grupo[grupo].equipo[equipo1].golesFavor += goles1;
+    comp.grupo[grupo].equipo[equipo1].golesContra += goles2;
+    comp.grupo[grupo].equipo[equipo1].diferenciaGol += (goles1 - goles2);
 // Actualización de estadísticas del segundo equipo
-    competencia.grupo[grupo].equipo[equipo2].partidoJugados++;  // Incrementa el número de partidos jugados
-    competencia.grupo[grupo].equipo[equipo2].golesFavor += goles2;  // Suma los goles a favor
-    competencia.grupo[grupo].equipo[equipo2].golesContra += goles1;  // Suma los goles en contra
-    competencia.grupo[grupo].equipo[equipo2].diferenciaGol += (goles2 - goles1);  // Calcula la diferencia de goles
+    comp.grupo[grupo].equipo[equipo2].partidoJugados++;  // Incrementa el número de partidos jugados
+    comp.grupo[grupo].equipo[equipo2].golesFavor += goles2;  // Suma los goles a favor
+    comp.grupo[grupo].equipo[equipo2].golesContra += goles1;  // Suma los goles en contra
+    comp.grupo[grupo].equipo[equipo2].diferenciaGol += (goles2 - goles1);  // Calcula la diferencia de goles
 
     // Determinar el ganador y actualizar puntos
     if (goles1 > goles2) {
-        competencia.grupo[grupo].equipo[equipo1].partidoGanado++;  // Incrementa los partidos ganados del primer equipo
-        competencia.grupo[grupo].equipo[equipo1].puntos += 3;  // El primer equipo recibe 3 puntos
-        competencia.grupo[grupo].equipo[equipo2].partidoPerdido++;  // Incrementa los partidos perdidos del segundo equipo
+        comp.grupo[grupo].equipo[equipo1].partidoGanado++;  // Incrementa los partidos ganados del primer equipo
+        comp.grupo[grupo].equipo[equipo1].puntos += 3;  // El primer equipo recibe 3 puntos
+        comp.grupo[grupo].equipo[equipo2].partidoPerdido++;  // Incrementa los partidos perdidos del segundo equipo
     } else if (goles1 < goles2) {
-        competencia.grupo[grupo].equipo[equipo2].partidoGanado++;  // Incrementa los partidos ganados del segundo equipo
-        competencia.grupo[grupo].equipo[equipo2].puntos += 3;  // El segundo equipo recibe 3 puntos
-        competencia.grupo[grupo].equipo[equipo1].partidoPerdido++;  // Incrementa los partidos perdidos del primer equipo
+        comp.grupo[grupo].equipo[equipo2].partidoGanado++;  // Incrementa los partidos ganados del segundo equipo
+        comp.grupo[grupo].equipo[equipo2].puntos += 3;  // El segundo equipo recibe 3 puntos
+        comp.grupo[grupo].equipo[equipo1].partidoPerdido++;  // Incrementa los partidos perdidos del primer equipo
     } else {
-        competencia.grupo[grupo].equipo[equipo1].partidoEmpatado++;  // Incrementa los partidos empatados del primer equipo
-        competencia.grupo[grupo].equipo[equipo1].puntos += 1;  // El primer equipo recibe 1 punto
-        competencia.grupo[grupo].equipo[equipo2].partidoEmpatado++;  // Incrementa los partidos empatados del segundo equipo
-        competencia.grupo[grupo].equipo[equipo2].puntos += 1;  // El segundo equipo recibe 1 punto
+        comp.grupo[grupo].equipo[equipo1].partidoEmpatado++;  // Incrementa los partidos empatados del primer equipo
+        comp.grupo[grupo].equipo[equipo1].puntos += 1;  // El primer equipo recibe 1 punto
+        comp.grupo[grupo].equipo[equipo2].partidoEmpatado++;  // Incrementa los partidos empatados del segundo equipo
+        comp.grupo[grupo].equipo[equipo2].puntos += 1;  // El segundo equipo recibe 1 punto
     }
 
-    printf("Estadísticas actualizadas exitosamente.\n");
+    printf("Estadisticas actualizadas exitosamente.\n");
 }
 
 
@@ -344,7 +369,7 @@ void modificarNombreEquipos() {
     if (encontrado == 0) {
         printf("El equipo fue modificado exitosamente.\n");
     } else {
-        printf("No se encontró el equipo o grupo especificado.\n");
+        printf("No se encontro el equipo o grupo especificado.\n");
     }
 }
 
