@@ -11,7 +11,6 @@ FILE *archivoGrupo;
 // Estructura para guardar los nombres de los equipos
 struct equipos {
     char nombreEquipo[50];
-    int estadisticas;
     int partidoGanado;
     int partidoPerdido;
     int partidoEmpatado;
@@ -83,10 +82,9 @@ void CrearMenu() {
 void crearFixture() {
     char nombreCompetencia[50];
     struct grupos grupo[4];  // Mantener 4 grupos
+    struct equipos;
     int numGrupos;
     int grupoElegido;
-    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
-    int golesFavor, golesContra, diferenciaGol, puntos;
 
 
     // Solicitar nombre de la competencia
@@ -149,7 +147,7 @@ void crearFixture() {
 
 
     // Guardar la competencia y equipos en el archivo
-    void guardarEquipos(struct grupos grupo[], int numGrupos, char nombreCompetencia[]) {
+void guardarEquipos(struct grupos grupo[], int numGrupos, char nombreCompetencia[]) {
     FILE *archivoEquipos = fopen("miarchivo.txt", "w");
     if (archivoEquipos == NULL) {
         perror("Error al abrir el archivo");
@@ -189,70 +187,43 @@ void verFixtureCompleto(){
 
 // Función para ver un grupo específico
 
-  void verGrupo(){
+void verGrupo() {
     char nombreCompetencia[50];
     struct grupos grupo[4];  // Mantener 4 grupos
     int numGrupos;
     int grupoElegido;
-    int partidoGanado, partidoPerdido, partidoEmpatado, partidoJugados;
-    int golesFavor, golesContra, diferenciaGol, puntos;
 
-
-    archivoEquipos = fopen("miarchivo.txt", "r");
-    if (archivoEquipos == NULL) {
-        printf("Error: El archivo no existe o no se puede abrir.\n");
-        return;
-    }
-
-    int grupoNum;
     printf("Ingrese el numero del grupo (1-4): ");
-    scanf("%d", &grupoNum);
+    scanf("%d", &grupoElegido);
 
-    if (grupoNum < 1 || grupoNum > 4) {
-        printf("Error: Numero de grupo invalido.\n");
-        fclose(archivoEquipos);
+    // Validar que el número del grupo sea válido
+    if (grupoElegido < 1 || grupoElegido > 4) {
+        printf("El numero es incorrecto, volve a intentar\n");
         return;
     }
 
-    char linea[100];
-    int equipoInicio = (grupoNum - 1) * 4 + 1; // Cálculo del índice inicial del grupo
-    int equipoFin = equipoInicio + 3;         // Cálculo del índice final del grupo
-    int equipoActual = 1;
+    // Ajustar índice del grupo para recorrer correctamente la estructura
+    grupoElegido--; // Convertir a índice basado en cero (0-3).
 
-    printf("\nGrupo %d:\n", grupoNum);
-    while (fgets(linea, sizeof(linea), archivoEquipos)) {
-        if (equipoActual >= equipoInicio && equipoActual <= equipoFin) {
-            printf("%s", linea);
-        }
-        if (strstr(linea, "Equipo")) {
-            equipoActual++;
-        }
-    }
-
-    fclose(archivoEquipos);
-
-
-
-for (int i = 0; i < 4; i++) { // Recorremos los grupos
-    printf("\n--- Estadísticas del Grupo %d ---\n", i + 1);
-    printf("\n================================= GRUPO %c ===================================\n", grupoElegido);
+    printf("\n--- Estadisticas del Grupo %d ---\n", grupoElegido + 1);
+    printf("\n================================= GRUPO %d ===================================\n", grupoElegido + 1);
     printf("| Equipo             | PJ   | PG   | PE   | PP   | Pts  | GF   | GC   | DG   |\n");
     printf("|--------------------|------|------|------|------|------|------|------|------|\n");
 
-
-    for (int j = 0; j < 4; j++) { // Recorremos los equipos dentro del grupo
-        printf("| %-18s | %4d | %4d | %4d | %4d | %4d | %4d | %4d | %4d |\n",
-               grupo[i].equipo[j].nombreEquipo,  // Nombre del equipo
-               grupo[i].equipo[j].partidoJugados, // Partidos jugados
-               grupo[i].equipo[j].partidoGanado,  // Partidos ganados
-               grupo[i].equipo[j].partidoEmpatado,// Partidos empatados
-               grupo[i].equipo[j].partidoPerdido, // Partidos perdidos
-               grupo[i].equipo[j].puntos,         // Puntos
-               grupo[i].equipo[j].golesFavor,     // Goles a favor
-               grupo[i].equipo[j].golesContra,    // Goles en contra
-               grupo[i].equipo[j].diferenciaGol); // Diferencia de goles
+    // Iterar por los equipos del grupo y mostrar las estadísticas
+    for (int j = 0; j < 4; j++) {
+        printf("| %-18s | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d | %-4d |\n",
+               comp.grupo[grupoElegido].equipo[j].nombreEquipo,  // Nombre del equipo
+               comp.grupo[grupoElegido].equipo[j].partidoJugados, // Partidos jugados
+               comp.grupo[grupoElegido].equipo[j].partidoGanado,  // Partidos ganados
+               comp.grupo[grupoElegido].equipo[j].partidoEmpatado,// Partidos empatados
+               comp.grupo[grupoElegido].equipo[j].partidoPerdido, // Partidos perdidos
+               comp.grupo[grupoElegido].equipo[j].puntos,         // Puntos
+               comp.grupo[grupoElegido].equipo[j].golesFavor,     // Goles a favor
+               comp.grupo[grupoElegido].equipo[j].golesContra,    // Goles en contra
+               comp.grupo[grupoElegido].equipo[j].diferenciaGol); // Diferencia de goles
     }
-}
+    printf("================================================================================\n");
 }
 
 // Función para cargar estadísticas de un equipo
@@ -428,6 +399,7 @@ void menuFixture(){
             case 2://funcion para ver un solo grupo
 
                 verGrupo();
+
                 break;
 
             case 3://funcion para cargar las estadisticas
