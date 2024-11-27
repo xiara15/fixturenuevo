@@ -1,4 +1,4 @@
-Competencia: cop
+Competencia: as
 
 Grupo 1:
 Equipo 1: a
@@ -8,18 +8,18 @@ Equipo 4: d
 
 Grupo 2:
 Equipo 1: e
-Equipo 2: f
-Equipo 3: g
-Equipo 4: h
+Equipo 2: r
+Equipo 3: f
+Equipo 4: g
 
 Grupo 3:
-Equipo 1: i
-Equipo 2: j
-Equipo 3: k
-Equipo 4: l
+Equipo 1: h
+Equipo 2: i
+Equipo 3: j
+Equipo 4: k
 
 Grupo 4:
-Equipo 1: m
-Equipo 2: n
+Equipo 1: l
+Equipo 2: m
 Equipo 3: ¤
 Equipo 4: o
